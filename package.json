@@ -1,0 +1,14 @@
+{
+  "name": "react-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "A project for react + typescript development",
+  "author": "xiaoyang <532758463@qq.com>",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "scripts": {}
+}
