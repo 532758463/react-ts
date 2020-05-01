@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/node
-# Edit at https://www.gitignore.io/?templates=node
+# Created by https://www.gitignore.io/api/node,react,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=node,react,visualstudiocode
 
 ### Node ###
 # Logs
@@ -47,7 +47,7 @@ node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
-# typings/
+typings/
 
 # TypeScript cache
 *.tsbuildinfo
@@ -108,4 +108,28 @@ dist/
 tmp/
 temp/
 
-# End of https://www.gitignore.io/api/node
+### react ###
+.DS_*
+**/*.backup.*
+**/*.back.*
+
+node_modules
+
+*.sublime*
+
+psd
+thumb
+sketch
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/node,react,visualstudiocode

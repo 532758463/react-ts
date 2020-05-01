@@ -2,7 +2,7 @@
 
 # react-ts
 
-从零开始构建typescript+react+webpack的项目
+## :books: 从零开始构建 typescript+react+webpack 的项目
 
 A project for react + typescript development
 
