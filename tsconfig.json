@@ -8,9 +8,9 @@
         "strict": true,
 
         /* Additional Checks */
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
+        "noUnusedLocals": true, //当有未使用的变量时抛出错误
+        "noUnusedParameters": true, //当有未使用的参数时报错
+        "noImplicitReturns": true, //在并非所有函数的代码都有返回值时，抛出错误
         "noFallthroughCasesInSwitch": true,
 
         /* Module Resolution Options */
@@ -32,7 +32,7 @@
         "skipLibCheck": true,
 
         // 下面这些选项对 babel 编译 TypeScript 没有作用但是可以让 VSCode 等编辑器正确提示错误
-        "target": "ES2015",
-        "module": "ES2015"
+        "target": "ES2015", //指定ES目标版本
+        "module": "ES2015" //指定使用的模块
     }
 }

@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+//对路径进行大小写严格检查
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { getCssLoaders } = require('./utils');
 const srcDir = path.join(__dirname, '../src');
@@ -13,8 +15,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '../dist'),
-        filename: '[name].bundle.js',
-        chunkFilename: 'chunk/[name].bundle.js',
+        filename: '[name].[hash:8].js',
+        chunkFilename: 'chunk/[name].[hash:8].js',
     },
     resolve: {
         // 我们导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入
@@ -23,10 +25,9 @@ module.exports = {
     module: {
         rules: [
             {
-                // 导入 jsx 的人少喝点
                 test: /\.(tsx?|js)$/,
                 loader: 'babel-loader',
-                // 开启缓存
+                // 开启缓存,优化babel-loader
                 options: { cacheDirectory: true },
                 exclude: /node_modules/,
             },
@@ -90,6 +91,7 @@ module.exports = {
             template: `${public}/index.html`,
         }),
         new CleanWebpackPlugin(),
+        new CaseSensitivePathsPlugin(),
         new WebpackBar({
             name: 'react-ts',
             // react 蓝
