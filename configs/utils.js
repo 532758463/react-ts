@@ -1,6 +1,10 @@
 const __DEV__ = process.env.NODE_ENV !== 'production';
-
 const { loader } = require('mini-css-extract-plugin');
+const fs = require('fs');
+const path = require('path');
+const appDirectory = fs.realpathSync(process.cwd());
+
+const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 function getCssLoaders(importLoaders) {
     return [
@@ -22,6 +26,23 @@ function getCssLoaders(importLoaders) {
     ];
 }
 
+const resolve = {
+    modules: ['node_modules', resolveApp('src')],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    alias: {
+        '@': resolveApp('src'),
+        '@assets': resolveApp('src/assets'),
+        '@components': resolveApp('src/components'),
+        '@constants': resolveApp('src/constants'),
+        '@pages': resolveApp('src/pages'),
+        '@services': resolveApp('src/services'),
+        '@utils': resolveApp('src/utils'),
+        '@locales': resolveApp('src/locales'),
+    },
+};
+
 module.exports = {
     getCssLoaders,
+    resolveApp,
+    resolve,
 };

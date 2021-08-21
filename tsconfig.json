@@ -20,7 +20,14 @@
         "baseUrl": "./",
         "paths": {
             // 配置模块路径映射
-            "@/*": ["./*"]
+            "@/*": ["src/*"],
+            "@assets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@constants/*": ["src/constants/*"],
+            "@locales/*": ["src/locales/*"],
+            "@pages/*": ["src/pages/*"],
+            "@services/*": ["src/services/*"],
+            "@utils/*": ["src/utils/*"]
         },
 
         /* Experimental Options */

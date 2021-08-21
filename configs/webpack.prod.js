@@ -1,11 +1,15 @@
 const webpackMerge = require('webpack-merge');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const baseWebpackConfig = require('./webpack.common');
 const MinCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const os = require('os');
 
 //对js进行打包处理的插件
 const TerserPlugin = require('terser-webpack-plugin');
 
+/**
+ * @type {Configuration}
+ */
 const webpackConfig = webpackMerge(baseWebpackConfig, {
     mode: 'production',
     stats: { children: false, warnings: false },
@@ -23,28 +27,16 @@ const webpackConfig = webpackMerge(baseWebpackConfig, {
         concatenateModules: true, // 开启 Scope-Hosting
         minimizer: [
             new TerserPlugin({
+                test: /\.js(\?.*)?$/i,
+                parallel: os.cpus().length - 1,
                 terserOptions: {
-                    warnings: false,
                     compress: {
-                        warnings: false,
-                        // 是否注释掉console
                         drop_console: false,
-                        dead_code: true,
-                        drop_debugger: true,
                     },
-                    output: {
-                        comments: false,
-                        beautify: false,
-                    },
-                    mangle: true,
                 },
-                cache: true,
-                //开启多线程
-                parallel: true,
-                sourceMap: false,
             }),
             //对css进行压缩
-            new OptimizeCSSAssetsPlugin(),
+            new CssMinimizerPlugin(),
         ],
         //分割代码
         splitChunks: {

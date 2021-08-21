@@ -3,25 +3,29 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 //对路径进行大小写严格检查
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const WebpackBar = require('webpackbar');
-const { getCssLoaders } = require('./utils');
-const srcDir = path.join(__dirname, '../src');
-const devMode = process.env.NODE_ENV !== 'production';
-const public = path.join(__dirname, '../public');
+const { getCssLoaders, resolve } = require('./utils');
+const { Configuration } = require('webpack');
 
-module.exports = {
+const isProduction = process.env.NODE_ENV === 'production';
+
+/**
+ * @type {Configuration}
+ */
+const config = {
+    optimization: {
+        moduleIds: 'named',
+    },
     entry: {
         main: path.join(__dirname, '../src/index.tsx'),
     },
     output: {
         path: path.join(__dirname, '../dist'),
-        filename: '[name].[hash:8].js',
-        chunkFilename: 'chunk/[name].[hash:8].js',
+        filename: '[name].[chunkhash:8].js',
+        chunkFilename: 'chunk/[name].[chunkhash:8].js',
     },
-    resolve: {
-        // 我们导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入
-        extensions: ['.ts', '.tsx', '.js', '.json'],
-    },
+    resolve,
     module: {
         rules: [
             {
@@ -88,8 +92,10 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: `${public}/index.html`,
+            template: `public/index.html`,
+            alwaysWriteToDisk: !isProduction,
         }),
+        new HtmlWebpackHarddiskPlugin(),
         new CleanWebpackPlugin(),
         new CaseSensitivePathsPlugin(),
         new WebpackBar({
@@ -99,3 +105,4 @@ module.exports = {
         }),
     ],
 };
+module.exports = config;
